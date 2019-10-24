@@ -1,4 +1,4 @@
 [build]
-base = "lyricapp/"
-publish = "lyricapp/build/"
+base = ""
+publish = "build"
 command = "npm run build"
