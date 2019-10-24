@@ -120,7 +120,7 @@ class Lyrics extends Component {
                 dangerouslySetInnerHTML={{ __html: artist_summary }}
               ></div>
             </div>
-            <div className="text-center p-2">
+            <div className="text-center">
               <img src={image} alt="" />
             </div>
 

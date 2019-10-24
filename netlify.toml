@@ -1,0 +1,4 @@
+[build]
+base = "lyricapp/"
+publish = "lyricapp/build/"
+command = "npm run build"
