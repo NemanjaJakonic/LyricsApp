@@ -8,7 +8,7 @@ let lastFmAPI;
 if(process.env.NODE_ENV !== 'production'){
   lastFmAPI = process.env.REACT_APP_MM_KEY;
 } else {
-  lastFmAPI = process.env.MM_KEY;
+  lastFmAPI = process.env.REACT_APP_MM_KEY;
 }
 
 const reducer = (state, action) => {
@@ -24,7 +24,7 @@ const reducer = (state, action) => {
   }
 };
 
-console.log(lastFmAPI)
+console.log('v1.00')
 
 export class Provider extends Component {
   state = {

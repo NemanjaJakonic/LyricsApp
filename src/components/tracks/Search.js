@@ -9,7 +9,7 @@ let lastFmAPI;
 if(process.env.NODE_ENV !== 'production'){
   lastFmAPI = process.env.REACT_APP_MM_KEY;
 } else {
-  lastFmAPI = process.env.MM_KEY;
+  lastFmAPI = process.env.REACT_APP_MM_KEY;
 }
 
 class Search extends Component {
