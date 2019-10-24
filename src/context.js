@@ -24,6 +24,8 @@ const reducer = (state, action) => {
   }
 };
 
+console.log(lastFmAPI)
+
 export class Provider extends Component {
   state = {
     track_list: [],
@@ -33,7 +35,7 @@ export class Provider extends Component {
   componentDidMount() {
     axios
       .get(
-        `https://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&limit=10&api_key=${lastFmAPI}&format=json`
+        `https://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&limit=10&api_key=${process.env.REACT_APP_MM_KEY}&format=json`
       )
       .then(res => {
         //console.log(res.data.tracks.track);
