@@ -3,6 +3,14 @@ import axios from "axios";
 
 const Context = React.createContext();
 
+let lastFmAPI;
+
+if(process.env.NODE_ENV !== 'production'){
+  lastFmAPI = process.env.REACT_APP_MM_KEY;
+} else {
+  lastFmAPI = process.env.MM_KEY;
+}
+
 const reducer = (state, action) => {
   switch (action.type) {
     case "SEARCH_TRACKS":
@@ -25,7 +33,7 @@ export class Provider extends Component {
   componentDidMount() {
     axios
       .get(
-        `https://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&limit=10&api_key=${process.env.REACT_APP_MM_KEY}&format=json`
+        `https://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&limit=10&api_key=${lastFmAPI}&format=json`
       )
       .then(res => {
         //console.log(res.data.tracks.track);
