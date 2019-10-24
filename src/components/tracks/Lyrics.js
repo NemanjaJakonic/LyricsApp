@@ -2,6 +2,14 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
+let lastFmAPI;
+
+if(process.env.NODE_ENV !== 'production'){
+  lastFmAPI = process.env.REACT_APP_MM_KEY;
+} else {
+  lastFmAPI = process.env.MM_KEY;
+}
+
 class Lyrics extends Component {
   state = {
     track: {},
@@ -23,7 +31,7 @@ class Lyrics extends Component {
       .catch(err => console.log(err));
     axios
       .get(
-        `https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${artist}&api_key=4653bcac743ebe7043f127687fe6c909&format=json`
+        `https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${artist}&api_key=${lastFmAPI}&format=json`
       )
       .then(res => {
         this.setState({ artist: res.data.artist });
@@ -33,7 +41,7 @@ class Lyrics extends Component {
       .catch(err => console.log(err));
     axios
       .get(
-        `https://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=4653bcac743ebe7043f127687fe6c909&artist=${artist}&track=${track}&format=json`
+        `https://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=${lastFmAPI}&artist=${artist}&track=${track}&format=json`
       )
       .then(res => {
         this.setState({ track: res.data.track });

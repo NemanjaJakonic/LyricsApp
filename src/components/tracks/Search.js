@@ -3,6 +3,15 @@ import axios from "axios";
 import { Consumer } from "../../context";
 //import Spinner from "../layout/Spinner";
 
+
+let lastFmAPI;
+
+if(process.env.NODE_ENV !== 'production'){
+  lastFmAPI = process.env.REACT_APP_MM_KEY;
+} else {
+  lastFmAPI = process.env.MM_KEY;
+}
+
 class Search extends Component {
   state = {
     trackTitle: ""
@@ -12,7 +21,7 @@ class Search extends Component {
     e.preventDefault();
     axios
       .get(
-        `https://ws.audioscrobbler.com/2.0/?method=track.search&track=${this.state.trackTitle}&limit=10&api_key=${process.env.REACT_APP_MM_KEY}&format=json`
+        `https://ws.audioscrobbler.com/2.0/?method=track.search&track=${this.state.trackTitle}&limit=10&api_key=${lastFmAPI}&format=json`
       )
       .then(res => {
         dispatch({
