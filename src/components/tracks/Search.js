@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Consumer } from "../../context";
-//import Spinner from "../layout/Spinner";
-
+import Autosuggest from 'react-autosuggest';
 
 let lastFmAPI;
 
@@ -14,7 +13,8 @@ if(process.env.NODE_ENV !== 'production'){
 
 class Search extends Component {
   state = {
-    trackTitle: ""
+    trackTitle: "",
+    suggestions :[]
   };
 
   findTrack = (dispatch, e) => {
@@ -50,16 +50,52 @@ class Search extends Component {
               </h1>
               <p className="lead text-center">Get the lyrics for any song</p>
               <form onSubmit={this.findTrack.bind(this, dispatch)}>
-                <div className="form-group">
-                  <input
-                    type="text"
-                    placeholder="Song title..."
-                    className="form-control form-control-lg"
-                    name="trackTitle"
-                    value={this.state.trackTitle}
-                    onChange={this.onChange}
-                  />
-                </div>
+              <div className='input-row'>
+                <label htmlFor='trackTitle'>Song title</label>
+                <Autosuggest
+                  inputProps={{
+                    placeholder: 'Song title..',
+                    autoComplete: 'off',
+                    name: 'trackTitle',
+                    id: 'trackTitle',
+                    value: this.state.trackTitle,
+                    onChange: (_event, { newValue }) => {
+                      this.setState({trackTitle:(newValue)});
+                    }
+                  }}
+                  suggestions={this.state.suggestions}
+                  onSuggestionsFetchRequested={async ({ value }) => {
+                    if (!value) {
+                      this.setState({suggestion:[]});
+                      return;
+                    }
+                    try {
+                      const result = await axios.get(
+                        `https://ws.audioscrobbler.com/2.0/?method=track.search&track=${value}&limit=5&api_key=${lastFmAPI}&format=json`
+                      );
+                      console.log(result.data.results.trackmatches.track);
+                      
+                      this.setState({suggestions:
+                        result.data.results.trackmatches.track.map(row => ({
+                          track: row.name,
+                          artist: row.artist
+                        }))
+                      });
+                    } catch (e) {
+                      this.setState({suggestion:[]});
+                    }
+                  }}
+                  onSuggestionsClearRequested={() => {
+                    this.setState({suggestion:[]});
+                  }}
+                  getSuggestionValue={suggestion => suggestion.artist +' '+ suggestion.track}
+                  renderSuggestion={suggestion => (
+                    <div className='autocomplete'>
+                      {suggestion.artist} - {suggestion.track}
+                    </div>
+                  )}
+                />
+              </div>
                 <button
                   className="btn btn-info btn-lg btn-block mb-5"
                   type="submit"
