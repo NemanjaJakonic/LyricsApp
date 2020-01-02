@@ -53,7 +53,7 @@ class Search extends Component {
                 <div className='input-row'>
                   <Autosuggest
                     inputProps={{
-                      placeholder: 'Song title..',
+                      placeholder: 'Enter artist or song title..',
                       autoComplete: 'off',
                       name: 'trackTitle',
                       id: 'trackTitle',
@@ -70,7 +70,7 @@ class Search extends Component {
                       }
                       try {
                         const result = await axios.get(
-                          `https://ws.audioscrobbler.com/2.0/?method=track.search&track=${value}&limit=5&api_key=${lastFmAPI}&format=json`
+                          `https://ws.audioscrobbler.com/2.0/?method=track.search&track=${value}&limit=6&api_key=${lastFmAPI}&format=json`
                         );
                         console.log(result.data.results.trackmatches.track);
 
