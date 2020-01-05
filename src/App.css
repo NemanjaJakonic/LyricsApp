@@ -71,7 +71,7 @@ input {
 }
 input[type='text'] {
   background-color: #f1f1f1;
-  width: 50vw;
+  width: 40vw;
 }
 input:focus {
   border: 1px solid #17a2b8;
@@ -105,7 +105,7 @@ input:focus {
   display: block;
   position: absolute;
   top: 51px;
-  width: 50vw;
+  width: 40vw;
   background-color: #17a2b8;
   opacity: 0.9;
   font-weight: 300;
@@ -128,4 +128,13 @@ input:focus {
 
 .react-autosuggest__suggestion--highlighted {
   background-color: #138496;
+}
+@media only screen and (max-width: 500px) {
+  input[type='text'] {
+  
+    width: 60vw;
+}
+.react-autosuggest__suggestions-container--open{
+  width: 60vw;
+}
 }
