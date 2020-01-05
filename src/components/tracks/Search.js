@@ -50,7 +50,7 @@ class Search extends Component {
               </h1>
               <p className='lead text-center'>Get the lyrics for any song</p>
               <form onSubmit={this.findTrack.bind(this, dispatch)}>
-                <div className='input-row'>
+                <div className='input-group'>
                   <Autosuggest
                     inputProps={{
                       placeholder: 'Enter artist or song title..',
@@ -98,13 +98,15 @@ class Search extends Component {
                       </div>
                     )}
                   />
+                  <span className='input-group-btn'>
+                    <button
+                      className='btn btn-info btn-lg'
+                      type='submit'
+                    >
+                      <i className='fa fa-search'></i>
+                    </button>
+                  </span>
                 </div>
-                <button
-                  className='btn btn-info btn-lg btn-block mb-5'
-                  type='submit'
-                >
-                  Get Track Lyrics
-                </button>
               </form>
             </div>
           );
